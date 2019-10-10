@@ -17,12 +17,7 @@
 # Таким образом, donuts(5) вернет 'Количество пончиков: 5'
 # а donuts(23) - 'Количество пончиков: много'
 def donuts(count):
-    counter = ''
-    if count >= 10:
-        counter = 'много'
-    else:
-        counter = count
-    return 'Количество пончиков: ' + str(counter)
+    return 'Количество пончиков: {}'.format('много' if count >= 10 else count)
 
 
 # B. Оба конца
@@ -33,10 +28,7 @@ def donuts(count):
 # Однако, если длина строки меньше, чем 2 -
 # верните просто пустую строчку.
 def both_ends(s):
-    s1 = ''
-    if len(s) > 2:
-        s1 = s[0:2] + s[-2:]
-    return s1
+    return s[:2] + s[-2:] if len(s) > 2 else ''
 
 
 # C. Кроме первого
@@ -48,9 +40,7 @@ def both_ends(s):
 # Подсказка: s.replace(stra, strb) вернет версию строки, 
 # в которой все вхождения stra будут заменены на strb.
 def fix_start(s):
-    letter = s[0]
-    s1 = s[0] + s[1:].replace(s[0], '*')
-    return s1
+    return s[0] + s[1:].replace(s[0], '*')
 
 
 # D. Перемешивание
@@ -61,12 +51,8 @@ def fix_start(s):
 #   'mix', 'pod' -> 'pox mid'
 #   'dog', 'dinner' -> 'dig donner'
 # Предполагается, что строки a и b имеют длину 2 и более символов.
-def mix_up(a, b):    
-    if len(a) > 2 and len(b) > 2:
-        letter_1 = a[0:2]
-        letter_2 = b[0:2]
-        s1 = a.replace(a[0:2], letter_2) + ' ' + b.replace(b[0:2], letter_1)
-    return s1
+def mix_up(a, b):
+    return a.replace(a[0:2], b[0:2]) + ' ' + b.replace(b[0:2], a[0:2])
 
 
 # E. Хорош
@@ -80,11 +66,7 @@ def mix_up(a, b):
 def not_bad(s):
     find_1 = s.find('не')
     find_2 = s.find('плох')
-    if find_1 < find_2:
-        s1 = s.replace(s[find_1:find_2 + 4], 'хорош')
-    else:
-        s1 = s
-    return s1
+    return s.replace(s[find_1:find_2 + 4], 'хорош') if find_1 < find_2 and find_1 != -1 and find_2 != -1 else s
 
 
 # F. Две половины
@@ -95,20 +77,9 @@ def not_bad(s):
 # Даны 2 строки, a и b, верните строку вида:
 # 1-половина-a + 1-половина-b + 2-половина-a + 2-половина-b
 def front_back(a, b):
-    if len(a) % 2 == 0:
-        a_1 = a[0:len(a) // 2]
-    else:
-        a_1 = a[0:len(a) // 2 + 1]
-
-    if len(b) % 2 == 0:
-        b_1 = b[0:len(b) // 2]
-    else:
-        b_1 = b[0:len(b) // 2 + 1]
-
-    a_2 = a[-(len(a) // 2):]
-    b_2 = b[-(len(b) // 2):]
-
-    return a_1 + b_1 + a_2 + b_2
+    len_a = len(a) // 2 + len(a) % 2
+    len_b = len(b) // 2 + len(b) % 2
+    return a[:len_a] + b[:len_b] + a[len_a:] + b[len_b:]
 
 
 
