@@ -16,11 +16,8 @@
 def match_ends(words):
     str_num = 0
     for x in words:
-        if len(x) > 1:
-            first_letter = x[0]
-            last_letter = x[len(x) - 1]
-            if first_letter == last_letter:
-                str_num += 1
+        if len(x) > 1 and x[0] == x[-1]:
+            str_num += 1
     return str_num
 
 # B. Начинающиеся с X в начале
@@ -36,10 +33,10 @@ def front_x(words):
     for x in words:
         if x[0] == 'x':
             x_list.append(x)
-            x_list.sort()
         else:
             notX_list.append(x)
-            notX_list.sort()
+    x_list.sort()
+    notX_list.sort()
     x_list.extend(notX_list)
     return x_list
 
@@ -54,8 +51,7 @@ def front_x(words):
 # чтобы получить последний элемент подсписка.
 
 def sort_last(lists):
-    lists.sort(key = lambda x: x[-1])
-    return lists
+    return sorted(lists, key = lambda x: x[-1])
 
 
 
@@ -65,18 +61,13 @@ def sort_last(lists):
 # были бы сведены к одному элементу.
 # Таким образом, из [1, 2, 2, 3, 4, 4] получится [1, 2, 3, 4]. 
 def remove_adjacent(nums):
-    first_index = 0
-    second_index = 1
-    while True:
-        if nums[first_index] == nums[second_index]:
-            del nums[second_index]
-            first_index -= 1
-            second_index -= 1
-        if second_index == len(nums) - 1:
-            break
-        first_index += 1
-        second_index += 1
-    return nums
+    second_index = None
+    num = []
+    for x in nums:
+        if x != second_index:
+            num.append(x)
+        second_index = x
+    return num
 
 
 
